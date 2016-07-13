@@ -1,0 +1,10 @@
+/target
+/.settings
+/.mvn
+!logs
+/logs/**
+
+
+.classpath
+.project
+

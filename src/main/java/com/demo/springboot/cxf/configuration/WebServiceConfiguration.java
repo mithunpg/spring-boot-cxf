@@ -3,9 +3,7 @@
  */
 package com.demo.springboot.cxf.configuration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.xml.ws.Endpoint;
@@ -13,7 +11,6 @@ import javax.xml.ws.Endpoint;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.feature.AbstractFeature;
-import org.apache.cxf.feature.Feature;
 import org.apache.cxf.feature.StaxTransformFeature;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFServlet;
@@ -32,6 +29,9 @@ import de.codecentric.namespace.weatherservice.WeatherService;
  */
 @Configuration
 public class WebServiceConfiguration {
+
+	public static final String BASE_URL = "/soap-api";
+	public static final String SERVICE_URL = "/WeatherSoapService_1.0";
 
 	@Bean
 	public ServletRegistrationBean dispatcherServlet() {
@@ -75,11 +75,11 @@ public class WebServiceConfiguration {
 		// Also the WSDLLocation must be set
 		endpoint.setServiceName(this.weather().getServiceName());
 		endpoint.setWsdlLocation(this.weather().getWSDLDocumentLocation().toString());
-		endpoint.publish("/WeatherSoapService_1.0");
+		endpoint.publish(WebServiceConfiguration.SERVICE_URL);
 
-		List<Feature> transformationFeature = new ArrayList<>();
-		transformationFeature.add(this.staxTransformFeature());
-		endpoint.setFeatures(transformationFeature);
+		// List<Feature> transformationFeature = new ArrayList<>();
+		// transformationFeature.add(this.staxTransformFeature());
+		// endpoint.setFeatures(transformationFeature);
 
 		return endpoint;
 	}

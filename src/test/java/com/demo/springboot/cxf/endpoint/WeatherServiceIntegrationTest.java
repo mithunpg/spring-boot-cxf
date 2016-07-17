@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.demo.springboot.cxf.endpoint.v1.WeatherServiceEndpoint;
-import com.demo.springboot.cxf.test.config.ApplicationTestConfiguration;
+import com.demo.springboot.cxf.test.config.WebServiceIntegrationTestConfiguration;
 import com.demo.springboot.cxf.utils.TestHelper;
 
 import de.codecentric.namespace.weatherservice.WeatherException;
+import de.codecentric.namespace.weatherservice.WeatherService;
 import de.codecentric.namespace.weatherservice.general.ForecastRequest;
 import de.codecentric.namespace.weatherservice.general.ForecastReturn;
 
@@ -23,11 +23,11 @@ import de.codecentric.namespace.weatherservice.general.ForecastReturn;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationTestConfiguration.class)
-public class WeatherServiceTest {
+@ContextConfiguration(classes = WebServiceIntegrationTestConfiguration.class)
+public class WeatherServiceIntegrationTest {
 
 	@Autowired
-	private WeatherServiceEndpoint weatherServiceEndpoint;
+	private WeatherService weatherServiceIntegrationTestClient;
 
 	@Test
 	public void getCityForecastByZIP() throws WeatherException {
@@ -36,7 +36,7 @@ public class WeatherServiceTest {
 		ForecastRequest forecastRequest = TestHelper.generateDummyForecastRequest();
 
 		// When
-		ForecastReturn forecastReturn = this.weatherServiceEndpoint
+		ForecastReturn forecastReturn = this.weatherServiceIntegrationTestClient
 				.getCityForecastByZIP(forecastRequest);
 
 		// Then

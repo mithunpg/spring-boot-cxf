@@ -11,7 +11,7 @@ Configuration:
             name: Console_Appender
             target: SYSTEM_OUT
             PatternLayout:
-                pattern: "%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5p [%40.40c{2.1}] [%t] %m%n"
+                pattern: "%d{yyyy-MM-dd_HH:mm:ss.SSS} [%-20.20t] [%40.40c{2.1}] %-5p %m%n"
                 
         File:
           - name: File_Appender
@@ -27,15 +27,16 @@ Configuration:
                 pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %40.40c{2.1} - %msg%n"
             Policies:
                 SizeBasedTriggeringPolicy:
-                  size: 1 KB
+                  size: 1 MB
             DefaultRollOverStrategy:
                 max: 30
                 
     Loggers:
         Root:
-            level: info
+            level: debug
             AppenderRef:
               - ref: Console_Appender
+              - ref: File_Appender
                 
         Logger:
           - name: com.demo.springboot.cxf
@@ -45,6 +46,6 @@ Configuration:
               - ref: Console_Appender
                 level: info
               - ref: File_Appender
-                level: error
+                level: debug
               - ref: RollingFile_Appender
                 level: debug

@@ -22,7 +22,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
-		<cxf.version>3.1.4</cxf.version>
+		<cxf.version>3.1.6</cxf.version>
 		<wsdl.import.gen-src.dir>target/gen-src/wsdlimport/Weather1.0</wsdl.import.gen-src.dir>
 		<org.slf4j-version>1.7.6</org.slf4j-version>
 	</properties>
@@ -94,6 +94,24 @@
 			<version>2.6.7</version>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>integration-test</id>
+			<properties>
+				<!-- Specifies the build.profile.id property that must be equal than 
+					the name of the directory that contains the profile specific configuration 
+					file. Because the name of the directory that contains the configuration file 
+					of the integration-test profile is integration-test, we must set the value 
+					of the build.profile.id property to integration-test. -->
+				<build.profile.id>integration-test</build.profile.id>
+				<!-- Only integration tests are run when the integration-test profile 
+					is active -->
+				<skip.integration.tests>false</skip.integration.tests>
+				<skip.unit.tests>true</skip.unit.tests>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>

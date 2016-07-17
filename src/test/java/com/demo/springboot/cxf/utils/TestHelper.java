@@ -13,7 +13,7 @@ import de.codecentric.namespace.weatherservice.general.ForecastRequest;
  */
 public class TestHelper {
 
-	public static ForecastRequest generateDummyRequest() {
+	public static ForecastRequest generateDummyForecastRequest() {
 		ForecastRequest forecastRequest = new ForecastRequest();
 		forecastRequest.setZIP("99425");
 		forecastRequest.setFlagcolor("blackblue");

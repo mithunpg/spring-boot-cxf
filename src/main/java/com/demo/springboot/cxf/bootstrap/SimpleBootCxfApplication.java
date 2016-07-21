@@ -14,9 +14,6 @@ public class SimpleBootCxfApplication {
 
 	public static void main(final String[] args) {
 		SimpleBootCxfApplication.LOG.debug("Starting service via SpringBoot configuration...");
-		SimpleBootCxfApplication.LOG.info("Starting service via SpringBoot configuration...");
-		SimpleBootCxfApplication.LOG.warn("Starting service via SpringBoot configuration...");
-		SimpleBootCxfApplication.LOG.error("Starting service via SpringBoot configuration...");
 		SpringApplication.run(SimpleBootCxfApplication.class, args);
 	}
 

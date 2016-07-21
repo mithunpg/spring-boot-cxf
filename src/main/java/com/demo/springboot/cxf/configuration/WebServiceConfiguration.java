@@ -3,15 +3,20 @@
  */
 package com.demo.springboot.cxf.configuration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.ws.Endpoint;
 
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
+import org.apache.cxf.databinding.DataBinding;
 import org.apache.cxf.feature.AbstractFeature;
+import org.apache.cxf.feature.Feature;
 import org.apache.cxf.feature.StaxTransformFeature;
+import org.apache.cxf.jaxb.JAXBDataBinding;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -33,9 +38,13 @@ public class WebServiceConfiguration {
 	public static final String BASE_URL = "/soap-api";
 	public static final String SERVICE_URL = "/WeatherSoapService_1.0";
 
+	/**
+	 * Replaces the need for web.xml
+	 * @return
+	 */
 	@Bean
 	public ServletRegistrationBean dispatcherServlet() {
-		return new ServletRegistrationBean(new CXFServlet(), "/soap-api/*");
+		return new ServletRegistrationBean(new CXFServlet(), BASE_URL + "/*");
 	}
 
 	@Bean(name = Bus.DEFAULT_BUS_ID)
@@ -55,7 +64,8 @@ public class WebServiceConfiguration {
 		return new Weather();
 	}
 
-	public AbstractFeature staxTransformFeature() {
+	@Bean
+	public StaxTransformFeature staxTransformFeature() {
 		StaxTransformFeature staxTransformFeature = new StaxTransformFeature();
 		Map<String, String> outElements = new HashMap<>();
 		outElements.put("{ns2}Forecast", "Forecast");
@@ -64,6 +74,11 @@ public class WebServiceConfiguration {
 		return staxTransformFeature;
 	}
 
+	/**
+	 * Replaces cxf-servlet.xml
+	 * 
+	 * @return
+	 */
 	@Bean
 	public Endpoint endpoint() {
 		EndpointImpl endpoint = new EndpointImpl(this.springBus(), this.weatherService());
@@ -76,10 +91,15 @@ public class WebServiceConfiguration {
 		endpoint.setServiceName(this.weather().getServiceName());
 		endpoint.setWsdlLocation(this.weather().getWSDLDocumentLocation().toString());
 		endpoint.publish(WebServiceConfiguration.SERVICE_URL);
+		
+//		DataBinding dataBinding = new JAXBDataBinding();
+//		Map<String, String> nameSpaceMapping = dataBinding.getDeclaredNamespaceMappings();
+//		nameSpaceMapping.put("http://www.codecentric.de/namespace/weatherservice/datatypes", "x");
+//		endpoint.setDataBinding(dataBinding );
 
-		// List<Feature> transformationFeature = new ArrayList<>();
-		// transformationFeature.add(this.staxTransformFeature());
-		// endpoint.setFeatures(transformationFeature);
+		 List<Feature> transformationFeature = new ArrayList<>();
+		 transformationFeature.add(this.staxTransformFeature());
+		 endpoint.setFeatures(transformationFeature);
 
 		return endpoint;
 	}

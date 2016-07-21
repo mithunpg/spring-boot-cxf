@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.demo.springboot.cxf.ApplicationTestConfiguration;
 import com.demo.springboot.cxf.endpoint.v1.WeatherServiceEndpoint;
-import com.demo.springboot.cxf.test.config.ApplicationTestConfiguration;
 import com.demo.springboot.cxf.utils.TestHelper;
 
 import de.codecentric.namespace.weatherservice.WeatherException;

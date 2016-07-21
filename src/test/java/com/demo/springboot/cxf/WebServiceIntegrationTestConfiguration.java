@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.demo.springboot.cxf.test.config;
+package com.demo.springboot.cxf;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.springframework.context.annotation.Bean;

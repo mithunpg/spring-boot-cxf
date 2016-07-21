@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.demo.springboot.cxf.test.config;
+package com.demo.springboot.cxf;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class WebServiceSystemTestConfiguration {
 	public WeatherService weatherServiceSystemTestClient() {
 		JaxWsProxyFactoryBean jaxWsProxyFactory = new JaxWsProxyFactoryBean();
 		jaxWsProxyFactory.setServiceClass(WeatherService.class);
-		jaxWsProxyFactory.setAddress("http://localhost:8095" + WebServiceConfiguration.BASE_URL
+		jaxWsProxyFactory.setAddress("http://localhost:8090" + WebServiceConfiguration.BASE_URL
 				+ WebServiceConfiguration.SERVICE_URL);
 
 		return (WeatherService) jaxWsProxyFactory.create();
